@@ -1,0 +1,199 @@
+/* =============================================================
+   MENHANCEMENTS — GLOBAL ELEMENTOR OVERRIDE CSS
+   Paste into: Appearance > Customize > Additional CSS
+   Forces the mh- design system through Elementor's global styles.
+   Covers BOTH colours AND backgrounds.
+   ============================================================= */
+
+/* ── ROOT VARIABLES ── */
+:root {
+    --mh-navy:        #041827;
+    --mh-navy-light:  #0a2d42;
+    --mh-bronze:      #c6986f;
+    --mh-bronze-dark: #b08660;
+    --mh-bronze-glow: rgba(198, 152, 111, 0.25);
+    --mh-neutral:     #eaeaea;
+    --mh-deep-grey:   #262626;
+    --mh-grey:        #666666;
+    --mh-light-bg:    #f5f3f0;
+    --mh-white:       #ffffff;
+    --mh-green:       #10b981;
+    --mh-red:         #ef4444;
+    --mh-font-heading:'League Spartan', sans-serif;
+    --mh-font-body:   'Montserrat', sans-serif;
+}
+
+/* ── BODY & BASE ── */
+body { font-family: var(--mh-font-body) !important; color: var(--mh-navy) !important; background: var(--mh-white) !important; }
+
+/* ── ALL HEADINGS (default: navy on light bg) ── */
+h1, h2, h3, h4, h5, h6 { font-family: var(--mh-font-heading) !important; color: var(--mh-navy) !important; }
+
+/* ── SECTIONS — BACKGROUNDS ── */
+.mh-section { background: var(--mh-white) !important; }
+.mh-section--light { background: var(--mh-light-bg) !important; }
+.mh-section--dark { background: var(--mh-navy) !important; color: var(--mh-white) !important; }
+
+/* ── DARK CONTEXT HEADINGS — override bare h2 { navy } ── */
+/* These selectors (class + element) beat the bare element selector above */
+.mh-section--dark h1, .mh-section--dark h2, .mh-section--dark h3,
+.mh-section--dark h4, .mh-section--dark h5, .mh-section--dark h6 { color: var(--mh-white) !important; }
+.mh-section--dark p { color: rgba(255, 255, 255, 0.8) !important; }
+.mh-section--dark .mh-section__title { color: var(--mh-white) !important; }
+.mh-section--dark .mh-section__subtitle { color: rgba(255, 255, 255, 0.65) !important; }
+
+.mh-hero h1, .mh-hero h2, .mh-hero h3 { color: var(--mh-white) !important; }
+.mh-final-cta h1, .mh-final-cta h2, .mh-final-cta h3 { color: var(--mh-white) !important; }
+.mh-footer h1, .mh-footer h2, .mh-footer h3, .mh-footer h4 { color: var(--mh-white) !important; }
+
+/* ── HERO ── */
+.mh-hero { background: linear-gradient(105deg, var(--mh-navy) 20%, var(--mh-navy-light) 50%, #0d3550 100%) !important; }
+.mh-hero__title { color: var(--mh-white) !important; }
+.mh-hero__title span { color: var(--mh-bronze) !important; }
+.mh-hero__subtitle { color: var(--mh-white) !important; }
+.mh-hero__text { color: rgba(255, 255, 255, 0.85) !important; }
+.mh-hero__lock-text { color: var(--mh-white) !important; }
+.mh-hero__lock-text strong { color: var(--mh-bronze) !important; }
+
+/* ── NAV ── */
+.mh-nav { background: rgba(255, 255, 255, 0.95) !important; }
+.mh-nav__logo { font-family: var(--mh-font-heading) !important; color: var(--mh-navy) !important; }
+.mh-nav__link { color: var(--mh-navy) !important; }
+.mh-nav__link:hover { color: var(--mh-bronze) !important; }
+.mh-nav__link--active { color: var(--mh-bronze) !important; }
+
+/* ── SECTION LABELS & TITLES ── */
+.mh-section__label { color: var(--mh-bronze) !important; }
+.mh-section__title { color: var(--mh-navy) !important; }
+.mh-section__subtitle { color: var(--mh-grey) !important; }
+
+/* ── CONTENT SPLITS (two-col sections) ── */
+.mh-content-split h3 { color: var(--mh-navy) !important; }
+.mh-content-split p { color: var(--mh-grey) !important; }
+
+/* ── BENEFIT / FEATURE LISTS ── */
+.mh-benefit-list li { color: var(--mh-navy) !important; }
+.mh-benefit-list__arrow { color: var(--mh-bronze) !important; }
+
+/* ── HOMEPAGE UNLIMITOX PACKAGE CARD (dark card) ── */
+.mh-package { background: linear-gradient(135deg, var(--mh-navy) 0%, var(--mh-navy-light) 100%) !important; }
+.mh-package h1, .mh-package h2, .mh-package h3, .mh-package h4 { color: var(--mh-white) !important; }
+.mh-package__label { color: var(--mh-bronze) !important; }
+.mh-package__name { color: var(--mh-white) !important; }
+.mh-package__amount { color: var(--mh-white) !important; }
+.mh-package__savings { color: var(--mh-bronze) !important; }
+.mh-package__benefits li { color: rgba(255, 255, 255, 0.8) !important; }
+.mh-package__benefits h4 { color: var(--mh-white) !important; }
+.mh-package p { color: rgba(255, 255, 255, 0.7) !important; }
+
+/* ── HOMEPAGE RESULTS / STATS (inside dark section) ── */
+.mh-stat__number { color: var(--mh-bronze) !important; }
+.mh-stat__label { color: rgba(255, 255, 255, 0.65) !important; }
+
+/* ── PRICING CARDS ── */
+.mh-price-card { background: var(--mh-white) !important; }
+.mh-price-card__type { color: var(--mh-bronze) !important; }
+.mh-price-card__name { color: var(--mh-navy) !important; }
+.mh-price-card__price { font-family: var(--mh-font-heading) !important; color: var(--mh-bronze) !important; }
+.mh-price-card__period { color: var(--mh-grey) !important; }
+.mh-price-card__benefits li { color: var(--mh-navy) !important; }
+.mh-price-card__check { color: var(--mh-green) !important; }
+
+/* ── TREATMENT CARDS (white cards, even inside dark sections) ── */
+.mh-treatment-card { background: var(--mh-white) !important; }
+.mh-treatment-card__title { color: var(--mh-navy) !important; }
+.mh-treatment-card__desc { color: var(--mh-grey) !important; }
+.mh-treatment-card__price { color: var(--mh-bronze) !important; }
+.mh-treatment-card__tagline { color: var(--mh-bronze) !important; }
+.mh-section--dark .mh-treatment-card h3,
+.mh-section--dark .mh-treatment-card__title { color: var(--mh-navy) !important; }
+.mh-section--dark .mh-treatment-card__tagline { color: var(--mh-bronze) !important; }
+.mh-section--dark .mh-treatment-card p { color: var(--mh-grey) !important; }
+.mh-section--dark .mh-treatment-list__link { color: var(--mh-navy) !important; }
+.mh-section--dark .mh-treatment-list__link:hover { color: var(--mh-bronze) !important; }
+.mh-section--dark .mh-treatment-list__arrow { color: var(--mh-bronze) !important; }
+.mh-section--dark .mh-treatment-list__item { border-color: var(--mh-neutral) !important; }
+
+/* ── COMPARISON TABLES ── */
+.mh-compare-table { background: var(--mh-white) !important; }
+.mh-compare-table thead { background: var(--mh-navy) !important; }
+.mh-compare-table th { color: var(--mh-white) !important; }
+.mh-compare-table td { color: var(--mh-navy) !important; }
+.mh-compare-table .mh-check { color: var(--mh-green) !important; }
+
+/* ── TRUST / FEATURE GRIDS ── */
+.mh-trust-card__icon { color: var(--mh-bronze) !important; }
+.mh-trust-card__title { color: var(--mh-bronze) !important; }
+.mh-trust-card__text { color: var(--mh-grey) !important; }
+.mh-feature-card { background: var(--mh-white) !important; }
+.mh-feature-card__icon { color: var(--mh-bronze) !important; }
+.mh-feature-card__title { color: var(--mh-navy) !important; }
+.mh-feature-card__text { color: var(--mh-grey) !important; }
+
+/* ── VALUE CARDS ── */
+.mh-value-card__title { color: var(--mh-bronze) !important; }
+.mh-value-card__text { color: var(--mh-grey) !important; }
+
+/* ── FAQ ACCORDION ── */
+.mh-faq { background: var(--mh-white) !important; }
+.mh-faq__question { color: var(--mh-navy) !important; background: var(--mh-white) !important; }
+.mh-faq__answer { color: var(--mh-grey) !important; }
+.mh-faq__answer p { color: var(--mh-grey) !important; }
+
+/* ── CALLOUTS ── */
+.mh-callout { background: linear-gradient(135deg, #f0f9ff, #f0f4f8) !important; }
+.mh-callout strong { color: var(--mh-bronze) !important; }
+.mh-callout p { color: var(--mh-grey) !important; }
+
+/* ── HOMEPAGE STEPS (How It Works) ── */
+.mh-step__title { color: var(--mh-navy) !important; }
+.mh-step__text { color: var(--mh-grey) !important; }
+.mh-step__number { color: var(--mh-bronze) !important; }
+
+/* ── STUDIO / LOCATION CARDS ── */
+.mh-studio-card { background: var(--mh-white) !important; }
+.mh-studio-card__name { color: var(--mh-navy) !important; }
+.mh-studio-card__address { color: var(--mh-grey) !important; }
+
+/* ── LEADER CARDS (About page) ── */
+.mh-leader-card { background: var(--mh-white) !important; }
+.mh-leader-card__name { color: var(--mh-navy) !important; }
+.mh-leader-card__role { color: var(--mh-bronze) !important; }
+.mh-leader-card__bio { color: var(--mh-grey) !important; }
+
+/* ── FINAL CTA SECTIONS ── */
+.mh-final-cta { background: linear-gradient(135deg, var(--mh-navy) 0%, var(--mh-navy-light) 100%) !important; color: #fff !important; }
+.mh-final-cta h2 { color: var(--mh-white) !important; }
+.mh-final-cta p { color: rgba(255, 255, 255, 0.7) !important; }
+.mh-final-cta .mh-section__title { color: var(--mh-white) !important; }
+
+/* ── FOOTER ── */
+.mh-footer { background: #021018 !important; color: rgba(255, 255, 255, 0.55) !important; }
+.mh-footer__brand { color: #fff !important; }
+.mh-footer__col h4 { color: var(--mh-white) !important; }
+.mh-footer__col a { color: rgba(255, 255, 255, 0.55) !important; }
+.mh-footer__col a:hover { color: var(--mh-bronze) !important; }
+.mh-footer__bottom p { color: rgba(255, 255, 255, 0.55) !important; }
+
+/* ── DISCRETION CARDS (Sexual Wellness) ── */
+.mh-discretion-card { background: var(--mh-white) !important; }
+.mh-discretion-card__title { color: var(--mh-navy) !important; }
+.mh-discretion-card__text { color: var(--mh-grey) !important; }
+
+/* ── FORM ── */
+.mh-form__label { color: var(--mh-navy) !important; }
+.mh-form__input { color: var(--mh-navy) !important; background: var(--mh-white) !important; }
+
+/* ── STICKY MOBILE BAR ── */
+.mh-sticky-bar { background: var(--mh-navy) !important; }
+.mh-sticky-bar__text { color: var(--mh-white) !important; }
+.mh-sticky-bar__text span { color: rgba(255, 255, 255, 0.55) !important; }
+
+/* ── TICKER ── */
+.mh-ticker { background: var(--mh-deep-grey) !important; }
+.mh-ticker__item { color: var(--mh-bronze) !important; }
+
+/* ── HOMEPAGE TREATMENT SHOWCASE (dark sections with cards) ── */
+.mh-showcase { background: var(--mh-white) !important; }
+.mh-showcase__title { color: var(--mh-navy) !important; }
+.mh-showcase__item { color: var(--mh-navy) !important; }

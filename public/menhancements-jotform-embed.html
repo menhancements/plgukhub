@@ -1,0 +1,102 @@
+<!-- ============================================================
+     MENHANCEMENTS — JOTFORM EMBED WRAPPER
+     ============================================================
+     Paste this into an Elementor HTML widget where you want
+     the consultation form to appear.
+
+     This replaces the old MailerLite form section with
+     the new JotForm, styled to match the Menhancements design.
+     ============================================================ -->
+
+<style>
+/* Wrapper that matches the homepage form section */
+.mh-jotform-section {
+    background: #f5f3f0;
+    padding: 4rem 0;
+    scroll-margin-top: 100px;
+}
+.mh-jotform-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.mh-jotform-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.mh-jotform-header .mh-jotform-label {
+    display: inline-block;
+    color: #c6986f;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-family: 'Montserrat', sans-serif;
+}
+.mh-jotform-header h2 {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #041827;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 0.5rem;
+}
+.mh-jotform-header p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 300;
+}
+/* iframe styling */
+.mh-jotform-frame {
+    width: 100%;
+    min-height: 800px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+}
+@media (max-width: 768px) {
+    .mh-jotform-section { padding: 2.5rem 0; }
+    .mh-jotform-header h2 { font-size: 1.5rem; }
+    .mh-jotform-frame { min-height: 1000px; border-radius: 12px; }
+}
+</style>
+
+<section class="mh-jotform-section" id="consultation-form">
+    <div class="mh-jotform-container">
+        <div class="mh-jotform-header">
+            <span class="mh-jotform-label">Get Started</span>
+            <h2>Start Your Consultation</h2>
+            <p>Private. Discreet. Clinically led. Free &amp; no-obligation.</p>
+        </div>
+        <iframe
+            class="mh-jotform-frame"
+            src="https://form.jotform.com/260406290711045"
+            title="Menhancements Consultation Form"
+            loading="lazy"
+            allowfullscreen
+            allow="geolocation; microphone; camera"
+            scrolling="no">
+        </iframe>
+    </div>
+</section>
+
+<!-- Auto-resize iframe height to match form content -->
+<script>
+(function() {
+    'use strict';
+    window.addEventListener('message', function(e) {
+        if (e.origin !== 'https://form.jotform.com') return;
+        try {
+            var data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+            if (data && data.action === 'setHeight') {
+                var frame = document.querySelector('.mh-jotform-frame');
+                if (frame) frame.style.height = data.height + 'px';
+            }
+        } catch (err) { /* ignore non-JSON messages */ }
+    }, false);
+})();
+</script>

@@ -1,0 +1,212 @@
+/* =============================================================
+   MENHANCEMENTS — ZAPIER → HUBSPOT FIELD MAPPING SCHEMA
+   =============================================================
+   This document defines the exact mapping between the
+   homepage enquiry form webhook payload and HubSpot CRM
+   contact properties.
+
+   ZAPIER ZAP CONFIGURATION:
+   ─────────────────────────
+   Trigger:  Webhooks by Zapier → Catch Hook
+   Action 1: HubSpot → Create/Update Contact
+   Action 2: Email by Zapier → Send Outbound Email (CC copy)
+   ============================================================= */
+
+
+/* ─────────────────────────────────────────────────────────────
+   STEP 1: ZAPIER TRIGGER — CATCH HOOK
+   ─────────────────────────────────────────────────────────────
+   Webhook URL: https://hooks.zapier.com/hooks/catch/XXXXX/XXXXX/
+   Method: POST
+   Content-Type: application/json
+
+   Incoming payload structure:
+   {
+     "full_name":          "James Richardson",
+     "email":              "james@example.com",
+     "phone":              "+447700000000",
+     "primary_interest":   "Sexual Wellness (Shockwave / P-Shot / Enhancement)",
+     "preferred_location": "Manchester (Flagship)",
+     "contact_method":     "WhatsApp",
+     "consent":            true,
+     "submitted_at":       "2025-12-15T14:30:00.000Z",
+     "source":             "menhancements-homepage",
+     "cc_email":           "enquiries@menhancements.co.uk"
+   }
+   ───────────────────────────────────────────────────────────── */
+
+
+/* ─────────────────────────────────────────────────────────────
+   STEP 2: ZAPIER ACTION 1 — HUBSPOT CREATE/UPDATE CONTACT
+   ─────────────────────────────────────────────────────────────
+
+   FIELD MAPPING TABLE:
+   ┌──────────────────────────┬────────────────────────────────────┬──────────────────────────────────┐
+   │ FORM FIELD (Webhook Key) │ HUBSPOT PROPERTY                   │ NOTES                            │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ full_name                │ firstname + lastname               │ Split on first space:            │
+   │                          │                                    │ "James Richardson"               │
+   │                          │                                    │ → firstname: "James"             │
+   │                          │                                    │ → lastname: "Richardson"         │
+   │                          │                                    │ If single word, firstname only.  │
+   │                          │                                    │ Use Zapier Formatter: Text →     │
+   │                          │                                    │ Split Text (separator: " ",      │
+   │                          │                                    │ segment: first / last)           │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ email                    │ email                              │ Standard HubSpot property.       │
+   │                          │                                    │ Used as unique identifier for     │
+   │                          │                                    │ Create/Update deduplication.     │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ phone                    │ phone                              │ Standard HubSpot property.       │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ primary_interest         │ service_interest                   │ CUSTOM PROPERTY — must create    │
+   │                          │ (custom single-line text or        │ in HubSpot first:                │
+   │                          │  dropdown)                         │ Settings → Properties →          │
+   │                          │                                    │ Create Property:                 │
+   │                          │                                    │ • Group: Contact information     │
+   │                          │                                    │ • Label: Service Interest        │
+   │                          │                                    │ • Internal name: service_interest│
+   │                          │                                    │ • Type: Dropdown select          │
+   │                          │                                    │ • Options:                       │
+   │                          │                                    │   - Facial Aesthetics            │
+   │                          │                                    │     (Anti-wrinkle / Fillers)     │
+   │                          │                                    │   - Sexual Wellness              │
+   │                          │                                    │     (Shockwave / P-Shot /        │
+   │                          │                                    │      Enhancement)                │
+   │                          │                                    │   - Hair Restoration (PRP)       │
+   │                          │                                    │   - General Enquiry              │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ preferred_location       │ clinic_location                    │ CUSTOM PROPERTY — must create    │
+   │                          │ (custom single-line text or        │ in HubSpot first:                │
+   │                          │  dropdown)                         │ • Group: Contact information     │
+   │                          │                                    │ • Label: Clinic Location         │
+   │                          │                                    │ • Internal name: clinic_location │
+   │                          │                                    │ • Type: Dropdown select          │
+   │                          │                                    │ • Options:                       │
+   │                          │                                    │   - Manchester (Flagship)        │
+   │                          │                                    │   - Leeds                        │
+   │                          │                                    │   - Wilmslow                     │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ contact_method           │ preferred_comms_channel            │ CUSTOM PROPERTY — must create    │
+   │                          │ (custom single-line text or        │ in HubSpot first:                │
+   │                          │  dropdown)                         │ • Group: Contact information     │
+   │                          │                                    │ • Label: Preferred Comms Channel │
+   │                          │                                    │ • Internal name:                 │
+   │                          │                                    │   preferred_comms_channel        │
+   │                          │                                    │ • Type: Dropdown select          │
+   │                          │                                    │ • Options:                       │
+   │                          │                                    │   - WhatsApp                     │
+   │                          │                                    │   - Email                        │
+   │                          │                                    │   - Phone Call                   │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ (static value)           │ lifecyclestage                     │ Set to: "lead"                   │
+   │                          │                                    │ Standard HubSpot property.       │
+   │                          │                                    │ In Zapier, use "Static Value"    │
+   │                          │                                    │ and type: lead                   │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ (static value)           │ hs_lead_status                     │ Set to: "NEW"                    │
+   │                          │                                    │ Standard HubSpot property.       │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ source                   │ hs_analytics_source_data_1         │ Optional: records form source.   │
+   │                          │                                    │ Value: "menhancements-homepage"  │
+   ├──────────────────────────┼────────────────────────────────────┼──────────────────────────────────┤
+   │ submitted_at             │ notes (or hs_latest_source_date)   │ Optional: timestamp for audit.   │
+   └──────────────────────────┴────────────────────────────────────┴──────────────────────────────────┘
+
+   ZAPIER CONFIG FOR NAME SPLITTING:
+   1. Add a "Formatter by Zapier" step BETWEEN Trigger and HubSpot action
+   2. Event: Text → Split Text
+   3. Input: {{full_name}} from trigger
+   4. Separator: " " (space)
+   5. Segment Index: First → use as {{firstname}}
+   6. Add second Formatter step for lastname:
+      Segment Index: Last → use as {{lastname}}
+      (Or use "All but first" for multi-word surnames)
+
+   ───────────────────────────────────────────────────────────── */
+
+
+/* ─────────────────────────────────────────────────────────────
+   STEP 3: ZAPIER ACTION 2 — EMAIL CC NOTIFICATION
+   ─────────────────────────────────────────────────────────────
+   Action: Email by Zapier → Send Outbound Email
+
+   To:       enquiries@menhancements.co.uk
+   Subject:  New Enquiry: {{primary_interest}} — {{full_name}}
+   Body:     (Plain text or HTML)
+
+   Template:
+   ─────────
+   NEW ENQUIRY RECEIVED
+   ━━━━━━━━━━━━━━━━━━━━━
+
+   Name:             {{full_name}}
+   Email:            {{email}}
+   Phone:            {{phone}}
+   Interest:         {{primary_interest}}
+   Preferred Clinic: {{preferred_location}}
+   Contact Via:      {{contact_method}}
+   Submitted:        {{submitted_at}}
+
+   ━━━━━━━━━━━━━━━━━━━━━
+   This lead has been automatically added to HubSpot
+   with Lifecycle Stage: Lead.
+
+   Action required: Reach out within 24 hours via
+   the client's preferred contact method.
+   ━━━━━━━━━━━━━━━━━━━━━
+   Source: menhancements-homepage
+   ─────────────────────────────────────────────────────────────  */
+
+
+/* ─────────────────────────────────────────────────────────────
+   HUBSPOT CUSTOM PROPERTIES — CREATION CHECKLIST
+   ─────────────────────────────────────────────────────────────
+   Before activating the Zap, create these 3 custom properties
+   in HubSpot (Settings → Properties → Create property):
+
+   1. service_interest
+      - Object: Contact
+      - Group: Contact information
+      - Label: Service Interest
+      - Internal name: service_interest
+      - Field type: Dropdown select
+      - Options:
+        • Facial Aesthetics (Anti-wrinkle / Fillers)
+        • Sexual Wellness (Shockwave / P-Shot / Enhancement)
+        • Hair Restoration (PRP)
+        • General Enquiry
+
+   2. clinic_location
+      - Object: Contact
+      - Group: Contact information
+      - Label: Clinic Location
+      - Internal name: clinic_location
+      - Field type: Dropdown select
+      - Options:
+        • Manchester (Flagship)
+        • Leeds
+        • Wilmslow
+
+   3. preferred_comms_channel
+      - Object: Contact
+      - Group: Contact information
+      - Label: Preferred Comms Channel
+      - Internal name: preferred_comms_channel
+      - Field type: Dropdown select
+      - Options:
+        • WhatsApp
+        • Email
+        • Phone Call
+
+   ───────────────────────────────────────────────────────────── */
+
+
+/* ─────────────────────────────────────────────────────────────
+   ZAP SUMMARY
+   ─────────────────────────────────────────────────────────────
+   Step 1: Trigger       → Webhooks by Zapier (Catch Hook)
+   Step 2: Formatter     → Split full_name into first + last
+   Step 3: HubSpot       → Create/Update Contact (mapped above)
+   Step 4: Email         → Send CC to enquiries@menhancements.co.uk
+   ───────────────────────────────────────────────────────────── */

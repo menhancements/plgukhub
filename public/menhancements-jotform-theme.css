@@ -1,0 +1,553 @@
+/* =============================================================
+   MENHANCEMENTS — JOTFORM CUSTOM THEME
+   =============================================================
+   Apply via: JotForm Form Builder → Settings → Form Styles
+              → Advanced → Inject Custom CSS
+
+   OR paste into: Form Builder → CSS tab (top bar)
+
+   Matches the Menhancements homepage design system:
+   - Navy/bronze palette
+   - League Spartan headings / Montserrat body
+   - Premium medical aesthetic feel
+   - BEM-inspired overrides on JotForm classes
+   ============================================================= */
+
+/* --- 1. FONT IMPORTS --- */
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+
+/* --- 2. CSS VARIABLES --- */
+:root {
+    --mh-navy:        #041827;
+    --mh-navy-light:  #0a2d42;
+    --mh-bronze:      #c6986f;
+    --mh-bronze-dark: #b08660;
+    --mh-bronze-glow: rgba(198, 152, 111, 0.25);
+    --mh-neutral:     #eaeaea;
+    --mh-deep-grey:   #262626;
+    --mh-grey:        #666666;
+    --mh-light-bg:    #f5f3f0;
+    --mh-white:       #ffffff;
+    --mh-radius:      8px;
+    --mh-transition:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- 3. GLOBAL FORM BODY --- */
+body {
+    font-family: 'Montserrat', sans-serif !important;
+    background: var(--mh-light-bg) !important;
+    color: var(--mh-navy) !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 4. FORM CONTAINER --- */
+.jotform-form {
+    font-family: 'Montserrat', sans-serif !important;
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+/* Outer form wrapper */
+.formRun,
+.form-all {
+    background: var(--mh-white) !important;
+    border: none !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+    padding: 2rem 1.5rem !important;
+    max-width: 800px !important;
+    margin: 1.5rem auto !important;
+}
+
+@media (min-width: 768px) {
+    .formRun,
+    .form-all {
+        padding: 3rem !important;
+    }
+}
+
+/* --- 5. FORM HEADER / TITLE --- */
+.form-header {
+    text-align: center !important;
+    margin-bottom: 2rem !important;
+    padding-bottom: 1.5rem !important;
+    border-bottom: 1px solid var(--mh-neutral) !important;
+}
+
+.form-header h1,
+.form-header .form-header-group h1,
+.header-text h1,
+.form-title {
+    font-family: 'League Spartan', sans-serif !important;
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: var(--mh-navy) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.form-header h2,
+.form-header .form-header-group h2,
+.header-text h2,
+.form-subHeader,
+.form-header p,
+.form-header .form-subHeader {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.95rem !important;
+    color: var(--mh-grey) !important;
+    font-weight: 300 !important;
+    line-height: 1.6 !important;
+}
+
+/* --- 6. SECTION HEADERS / DIVIDERS --- */
+.form-section,
+.form-collapse-table,
+.form-pagebreak,
+.page-section {
+    border: none !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.form-section-closed .form-collapse-table-title,
+.form-section .form-section-header,
+.page-section .form-section-header,
+.form-collapse-table .form-collapse-table-title,
+.form-section h3,
+.form-section h4,
+.section-header,
+.page-section h2 {
+    font-family: 'League Spartan', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    color: var(--mh-bronze) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    border-bottom: 1px solid var(--mh-neutral) !important;
+    padding-bottom: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    background: none !important;
+}
+
+/* Divider line elements */
+.form-line[data-type="control_divider"] .divider {
+    border-top: 1px solid var(--mh-neutral) !important;
+    margin: 1.5rem 0 !important;
+}
+
+/* --- 7. FORM LABELS --- */
+.form-label,
+.form-label-top,
+.form-label-left,
+.form-sub-label,
+label.form-label {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    color: var(--mh-navy) !important;
+    margin-bottom: 0.4rem !important;
+}
+
+.form-sub-label {
+    font-weight: 400 !important;
+    font-size: 0.75rem !important;
+    color: var(--mh-grey) !important;
+}
+
+/* Required asterisk */
+.form-required {
+    color: var(--mh-bronze) !important;
+}
+
+/* --- 8. TEXT INPUTS, SELECTS, TEXTAREAS --- */
+.form-textbox,
+.form-textarea,
+.form-dropdown,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100% !important;
+    padding: 0.75rem 1rem !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.95rem !important;
+    color: var(--mh-navy) !important;
+    background: #fcfcfc !important;
+    transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+}
+
+.form-textbox:focus,
+.form-textarea:focus,
+.form-dropdown:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--mh-bronze) !important;
+    background: var(--mh-white) !important;
+    box-shadow: 0 0 0 3px var(--mh-bronze-glow) !important;
+}
+
+/* Placeholder text */
+.form-textbox::placeholder,
+.form-textarea::placeholder,
+input::placeholder,
+textarea::placeholder {
+    color: #bbb !important;
+    font-weight: 300 !important;
+}
+
+/* --- 9. RADIO BUTTONS & CHECKBOXES --- */
+.form-radio-item,
+.form-checkbox-item,
+.form-single-column .form-radio-item,
+.form-single-column .form-checkbox-item,
+.form-multiple-column .form-radio-item,
+.form-multiple-column .form-checkbox-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 0.75rem !important;
+    margin-bottom: 0.35rem !important;
+    border-radius: 4px !important;
+    transition: background 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.form-radio-item:hover,
+.form-checkbox-item:hover {
+    background: var(--mh-light-bg) !important;
+}
+
+.form-radio-item label,
+.form-checkbox-item label {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.9rem !important;
+    color: var(--mh-grey) !important;
+    cursor: pointer !important;
+    font-weight: 400 !important;
+}
+
+/* Custom radio/checkbox accent */
+input[type="radio"],
+input[type="checkbox"] {
+    accent-color: var(--mh-bronze) !important;
+    width: 18px !important;
+    height: 18px !important;
+    cursor: pointer !important;
+}
+
+/* Multi-column layout for selections */
+.form-multiple-column {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.25rem !important;
+}
+
+@media (max-width: 480px) {
+    .form-multiple-column {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* --- 10. SUBMIT BUTTON --- */
+.form-submit-button,
+.form-submit-button:link,
+.form-submit-button:visited,
+button[type="submit"],
+input[type="submit"],
+.jf-form-buttons button {
+    background: var(--mh-navy) !important;
+    color: var(--mh-white) !important;
+    font-family: 'League Spartan', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.05rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 1rem 2rem !important;
+    border: none !important;
+    border-radius: 4px !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    transition: background 0.3s ease, transform 0.3s ease !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+}
+
+.form-submit-button:hover,
+button[type="submit"]:hover,
+input[type="submit"]:hover,
+.jf-form-buttons button:hover {
+    background: var(--mh-bronze) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px var(--mh-bronze-glow) !important;
+}
+
+.form-submit-button:active,
+button[type="submit"]:active {
+    transform: translateY(0) !important;
+}
+
+/* Button container */
+.form-buttons-wrapper,
+.jf-form-buttons {
+    margin-top: 2rem !important;
+    padding-top: 1rem !important;
+}
+
+/* Previous/Next buttons (multi-page forms) */
+.form-submit-preview,
+.form-pagebreak-back,
+.jf-form-buttons .forPrev {
+    background: transparent !important;
+    color: var(--mh-navy) !important;
+    border: 2px solid var(--mh-navy) !important;
+    font-family: 'League Spartan', sans-serif !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 0.85rem 1.5rem !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-submit-preview:hover,
+.form-pagebreak-back:hover,
+.jf-form-buttons .forPrev:hover {
+    background: var(--mh-navy) !important;
+    color: var(--mh-white) !important;
+}
+
+/* Next button */
+.form-pagebreak-next,
+.jf-form-buttons .forNext {
+    background: var(--mh-bronze) !important;
+    color: var(--mh-white) !important;
+    font-family: 'League Spartan', sans-serif !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    padding: 0.85rem 1.5rem !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-pagebreak-next:hover,
+.jf-form-buttons .forNext:hover {
+    background: var(--mh-bronze-dark) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* --- 11. FORM LINES / ROWS --- */
+.form-line {
+    margin-bottom: 0.75rem !important;
+    padding: 0.5rem 0 !important;
+}
+
+.form-input,
+.form-input-wide {
+    width: 100% !important;
+}
+
+/* Two-column field rows */
+.form-line[data-type="control_name"],
+.form-line .form-input .form-sub-label-container {
+    margin-bottom: 0.5rem !important;
+}
+
+/* --- 12. ERROR STATES --- */
+.form-line-error .form-textbox,
+.form-line-error .form-textarea,
+.form-line-error .form-dropdown,
+.form-line-error input,
+.form-line-error select,
+.form-line-error textarea {
+    border-color: #d44 !important;
+    box-shadow: 0 0 0 3px rgba(221, 68, 68, 0.15) !important;
+}
+
+.form-error-message {
+    color: #d44 !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    margin-top: 0.35rem !important;
+}
+
+/* --- 13. PROGRESS BAR (multi-page) --- */
+.form-progress-bar,
+.progressBarContainer {
+    background: var(--mh-neutral) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    height: 6px !important;
+    margin-bottom: 2rem !important;
+}
+
+.form-progress-bar .progress-bar-fill,
+.progressBarContainer .progressBar {
+    background: linear-gradient(90deg, var(--mh-bronze), var(--mh-bronze-dark)) !important;
+    border-radius: 4px !important;
+    height: 100% !important;
+    transition: width 0.5s ease !important;
+}
+
+/* Progress text */
+.progressBarText,
+.form-progress-text {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.75rem !important;
+    color: var(--mh-grey) !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* --- 14. THANK YOU PAGE --- */
+.thankyou-main,
+.form-thankyou,
+.thankyou-body {
+    text-align: center !important;
+    padding: 3rem 2rem !important;
+}
+
+.thankyou-main h1,
+.form-thankyou h1,
+.thankyou-header {
+    font-family: 'League Spartan', sans-serif !important;
+    font-size: 2rem !important;
+    color: var(--mh-navy) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    margin-bottom: 1rem !important;
+}
+
+.thankyou-main p,
+.form-thankyou p,
+.thankyou-body p {
+    font-family: 'Montserrat', sans-serif !important;
+    color: var(--mh-grey) !important;
+    font-size: 1rem !important;
+    font-weight: 300 !important;
+    line-height: 1.7 !important;
+}
+
+/* --- 15. DESCRIPTION / HELPER TEXT --- */
+.form-description,
+.form-line .form-description,
+.form-line-column .form-description {
+    font-size: 0.82rem !important;
+    color: var(--mh-grey) !important;
+    font-weight: 300 !important;
+    font-style: normal !important;
+    margin-top: 0.25rem !important;
+    line-height: 1.5 !important;
+}
+
+/* --- 16. CONDITIONAL/DYNAMIC SECTIONS --- */
+.form-line[style*="display: none"],
+.form-line.hidden {
+    transition: opacity 0.3s ease, max-height 0.3s ease !important;
+}
+
+/* --- 17. IMAGE/WIDGET ELEMENTS --- */
+.form-line[data-type="control_image"] img {
+    border-radius: var(--mh-radius) !important;
+    max-width: 100% !important;
+}
+
+/* --- 18. SIGNATURE WIDGET --- */
+.form-line[data-type="control_signature"] canvas,
+.signature-pad {
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+    background: #fcfcfc !important;
+}
+
+/* --- 19. FILE UPLOAD --- */
+.form-line[data-type="control_fileupload"] .qq-upload-button,
+.form-upload-button {
+    background: var(--mh-light-bg) !important;
+    color: var(--mh-navy) !important;
+    border: 2px dashed #ccc !important;
+    border-radius: var(--mh-radius) !important;
+    padding: 1.5rem !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 500 !important;
+    transition: border-color 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.form-line[data-type="control_fileupload"] .qq-upload-button:hover,
+.form-upload-button:hover {
+    border-color: var(--mh-bronze) !important;
+}
+
+/* --- 20. SCROLLBAR STYLING --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--mh-light-bg);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--mh-bronze);
+    border-radius: 3px;
+}
+
+/* --- 21. REMOVE JOTFORM BRANDING (if on paid plan) --- */
+.form-footer,
+.formFooter,
+a[href*="jotform.com"] {
+    display: none !important;
+}
+
+/* --- 22. RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 480px) {
+    .formRun,
+    .form-all {
+        padding: 1.5rem 1rem !important;
+        margin: 0.75rem !important;
+        border-radius: 12px !important;
+    }
+
+    .form-header h1,
+    .form-title {
+        font-size: 1.35rem !important;
+    }
+
+    .form-submit-button,
+    button[type="submit"],
+    input[type="submit"] {
+        font-size: 0.95rem !important;
+        padding: 0.85rem 1.5rem !important;
+    }
+
+    .form-textbox,
+    .form-textarea,
+    .form-dropdown,
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+        font-size: 16px !important; /* Prevents iOS zoom on focus */
+    }
+}
